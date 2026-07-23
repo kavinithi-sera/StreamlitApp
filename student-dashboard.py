@@ -12,18 +12,16 @@ st.set_page_config(page_title="Student Performance Dashboard", layout="wide")
 st.markdown(
     """
     <style>
-    .header {background-color:#0b5cff; padding:12px; border-radius:8px;}
-    .big-title {color: white; font-size:30px; font-weight:700; margin:0;}
+    .big-title {color: white; font-size:1000px; font-weight:700; margin:0;}
     .subtitle {color: #e6f0ff; margin-top:4px;}
-    .card {background:#f8f9fb; padding:12px; border-radius:8px; margin-bottom:12px;}
+    .card {background:#f8f9fb; padding:12px; border-radius:8px; margin-bottom:12px; color:#000000; font-weight:600; padding:8px;}
     </style>
     """,
     unsafe_allow_html=True,
 )
 
 # Title and description
-st.markdown('<div class="header"><p class="big-title">Student Performance Analytics Dashboard</p><p class="subtitle">Interactive analysis of marks and attendance</p></div>', unsafe_allow_html=True)
-st.write("Use the sidebar to filter data and download filtered results.")
+st.markdown('<div><h1>Student Performance Analytics Dashboard</h1><h4 class="subtitle">Interactive analysis of marks and attendance</h4></div>', unsafe_allow_html=True)
 
 # Load dataset
 @st.cache_data
@@ -43,6 +41,7 @@ except Exception as e:
 
 # Sidebar filters
 st.sidebar.header("Filters")
+st.sidebar.write("Use the sidebar to filter data and download filtered results.")
 departments = ["All"] + sorted(df['Department'].dropna().unique().tolist())
 dept_sel = st.sidebar.selectbox("Department", departments, index=0)
 semesters = ["All"] + sorted(df['Semester'].dropna().unique().astype(int).tolist())
@@ -136,5 +135,5 @@ else:
     st.write("No data after filtering.")
 
 # Footer / note
-st.markdown("<hr>")
+st.markdown("<hr>", unsafe_allow_html=True)
 st.caption("This is a simple Streamlit dashboard for student performance analytics. Customize as needed.")
